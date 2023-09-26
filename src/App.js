@@ -6,6 +6,7 @@ import { CreateTodoButton } from './CreateTodoButton';
 import { Nadvar } from './Nadvar';
 import { Footer } from './Footer';
 import './App.css';
+// import { Graficos } from './Graficos';
 
 const defaultTodos = [
   { text: 'Cortar cebolla', completed: true },
@@ -30,6 +31,7 @@ function App() {
         completed={todo.completed}
       />))}
       </TodoList>
+      {/* <Graficos/> */}
       <CreateTodoButton/>
       <Footer/>
     </>
