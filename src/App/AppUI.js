@@ -16,6 +16,7 @@ import { TodoGraphicLoading } from "../TodoGraphicLoading";
 import { Modal } from "../Modal";
 import { TodoContext } from "../TodoContext";
 import { TodoForm } from "../TodoForm";
+import { Filtros } from "../Filtros";
 
 function AppUI() {
   const {
@@ -29,67 +30,87 @@ function AppUI() {
     showSearch,
     showCounter,
     showGraphic,
-    openModal,
-    setOpenModal
-    } = React.useContext(TodoContext);
+    openModal
+  } = React.useContext(TodoContext);
+
   return (
     <>
       <Nadvar />
 
-          <div className="SuperiorContainerAll">
-          {loading && (
-            <>
-              <TodoCounterLoading />
-            </>
-          )}
-          {showCounter && <TodoCounter />}
-          {loading && (
-            <>
-              <TodoSearchLoading />
-            </>
-          )}
-          {showSearch && <TodoSearch />}
+      <main className="dashboard-container container-fluid py-4 px-md-5">
+        <div className="row g-4">
+          
+          {/* Left Column: Progress & Stats */}
+          <div className="col-12 col-lg-5 col-xl-4">
+            <div className="glass p-4 rounded-4 h-100 d-flex flex-column gap-4">
+              <div>
+                <h2 className="fs-4 fw-bold mb-1 text-primary">Tu Progreso</h2>
+                <p className="text-secondary small">Estadísticas y resumen de tus metas actuales</p>
+              </div>
 
-          {/* Arreglar los estilos */}
-          <div className="container1">
-            <TodoList>
-              {searchedTodos.map((todo) => (
-                <TodoItem
-                  key={todo.text}
-                  text={todo.text}
-                  completed={todo.completed}
-                  onComplete={() => completeTodo(todo.text)}
-                  onDelete={() => deleteTodo(todo.text)}
-                />
-              ))}
-            </TodoList>
-            {loading && (
-              <>
-                <TodosLoading />
-              </>
-            )}
-            {error && <TodosError />}
-            {!loading && searchedTodos.length === 0 && <EmptyTodos />}
+              {loading ? (
+                <TodoCounterLoading />
+              ) : (
+                showCounter && <TodoCounter />
+              )}
 
-            {loading && (
-              <>
+              {loading ? (
                 <TodoGraphicLoading />
-              </>
-            )}
-            {showGraphic && (
-              <Graficos completed={completedTodos} total={totalTodos} />
-            )}
+              ) : (
+                showGraphic && <Graficos completed={completedTodos} total={totalTodos} />
+              )}
+            </div>
           </div>
 
-          {/* Arreglar los estilos */}
+          {/* Right Column: Search, Filter & List */}
+          <div className="col-12 col-lg-7 col-xl-8">
+            <div className="glass p-4 rounded-4 h-100 d-flex flex-column gap-4">
+              <div>
+                <h2 className="fs-4 fw-bold mb-1 text-primary">Lista de Tareas</h2>
+                <p className="text-secondary small">Busca, filtra y gestiona tus actividades diarias</p>
+              </div>
+
+              <div className="d-flex flex-column gap-2">
+                {loading ? (
+                  <TodoSearchLoading />
+                ) : (
+                  showSearch && <TodoSearch />
+                )}
+                
+                {!loading && <Filtros />}
+              </div>
+
+              <div className="todo-list-wrapper">
+                <TodoList>
+                  {searchedTodos.map((todo) => (
+                    <TodoItem
+                      key={todo.text}
+                      text={todo.text}
+                      completed={todo.completed}
+                      onComplete={() => completeTodo(todo.text)}
+                      onDelete={() => deleteTodo(todo.text)}
+                    />
+                  ))}
+                </TodoList>
+
+                {loading && <TodosLoading />}
+                {error && <TodosError />}
+                {!loading && searchedTodos.length === 0 && <EmptyTodos />}
+              </div>
+            </div>
+          </div>
+
         </div>
+      </main>
 
       <CreateTodoButton />
+
       {openModal && (
         <Modal>
-        <TodoForm/>
-      </Modal>
+          <TodoForm />
+        </Modal>
       )}
+
       <Footer />
     </>
   );

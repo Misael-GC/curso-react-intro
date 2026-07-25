@@ -1,86 +1,106 @@
 .formModal {
-    width: 90%;
-    max-width: 300px;
-    /* background-color: #fff; */
-    padding: 33px 40px;
-    display: flex;
-    align-content: center;
-    flex-direction: column;
-    border-radius: 20px;
-    background: rgba(25, 176, 236, 0.384) ; /*rgba(180, 170, 181, 0.24); rgba(247, 4, 226, 0.24); ,rgba(25, 176, 236, 0.384);*/
-  }
+  width: 90%;
+  max-width: 420px;
+  background: var(--modal-bg);
+  border: 1px solid var(--card-border);
+  padding: 30px 24px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 24px;
+  box-shadow: var(--shadow-premium);
+  animation: scaleIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
 
-  label {
-    text-align: center;
-    font-weight: bold;
-    font-size: 22px;
-    margin-bottom: 26px;
-    color: #fff;
-  }
+@keyframes scaleIn {
+  from { transform: scale(0.9); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
 
-  textarea {
-    /* background-color: #F9FBFC; */
-    border: 2px, solid #202329;
-    border-radius: 2px;
-    box-shadow: 0px 5px 50px rgba(5, 169, 245, 0.349);
-    color: #61DAFA;
-    font-size: 20px;
-    text-align: center;
-    padding: 12px;
-    height: 96px;
-    width: calc(100%-25px);
-    resize: vertical; /*aporte*/
-    background: rgba(36, 34, 34, 0.699);
-  }
+.formModal label {
+  text-align: center;
+  font-weight: 600;
+  font-size: 1.25rem;
+  margin-bottom: 20px;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
 
-  textarea::placeholder {
-  color: #61d9fa91;
-  font-family: 'Montserrat';
-  font-weight: 400;
-  }
+.formModal label svg {
+  color: var(--primary);
+}
 
-  textarea:focus {
-    outline-color: #61DAFA;
-  }
+.formModal textarea {
+  background: var(--input-bg);
+  border: 1px solid var(--input-border);
+  border-radius: 14px;
+  color: var(--text-primary);
+  font-size: 1rem;
+  padding: 16px;
+  height: 120px;
+  width: 100%;
+  resize: none;
+  transition: var(--transition-smooth);
+}
 
-  .TodoForm-buttonContainer {
-    margin-top: 14px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    gap: 15px;
-  }
+.formModal textarea::placeholder {
+  color: var(--text-muted);
+}
 
-  .TodoForm-button {
-    cursor: pointer;
-    display: inline-block;
-    font-size: 20px;
-    color: #202329;
-    font-weight: 400;
-    width: 120px;
-    height: 48px;
-    border-radius: 20px;
-    border: none;
-    font-family: 'Montserrat';
-  }
+.formModal textarea:focus {
+  background: rgba(0, 0, 0, 0.3);
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px var(--primary-glow);
+  outline: none;
+}
 
-  .TodoForm-button--add {
-    background-color: #61DAFA;
-    box-shadow: 0px 5px 25px rgba(97, 218, 250, 0.5);
-  }
+.TodoForm-buttonContainer {
+  margin-top: 24px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
 
-  .TodoForm-button--cancel {
-    background:#dbd9d9;
-  }
+.TodoForm-button {
+  cursor: pointer;
+  padding: 10px 20px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  border-radius: 12px;
+  border: none;
+  transition: var(--transition-smooth);
+  height: 42px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
 
-  .TodoForm-button--add:hover {
-    background-color: #4dcaec;
-    color: #F9FBFC;
-    box-shadow: 0px 5px 25px rgba(97, 218, 250, 0.5);
-  }
+.TodoForm-button--cancel {
+  background: transparent;
+  color: var(--text-secondary);
+  border: 1px solid var(--card-border);
+}
 
-  .TodoForm-button--cancel:hover{
-    background-color: #3e393e;
-    color: #fff;
-  }
+.TodoForm-button--cancel:hover {
+  background: rgba(150, 150, 150, 0.1);
+  color: var(--text-primary);
+  border-color: var(--card-border-hover);
+}
+
+.TodoForm-button--add {
+  background: var(--primary);
+  color: var(--bg-color);
+  box-shadow: 0 4px 14px var(--primary-glow);
+}
+
+.TodoForm-button--add:hover {
+  filter: brightness(1.1);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px var(--primary-glow);
+}
+
+.TodoForm-button--add:active {
+  transform: translateY(0);
+}

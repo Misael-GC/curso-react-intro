@@ -1,55 +1,81 @@
 import React from 'react';
 import { Doughnut } from 'react-chartjs-2';
 import { BsFillDashCircleFill, BsCheckSquareFill } from "react-icons/bs";
+import { AiFillPlusCircle } from "react-icons/ai";
 import 'chart.js/auto';
-import './Graficos.css'
+import './Graficos.css';
+import { TodoContext } from '../TodoContext';
 
-function Graficos({ total, completed, }) {
+function Graficos({ total, completed }) {
+  const { theme } = React.useContext(TodoContext);
+  const percentage = total > 0 ? (completed / total) * 100 : 0;
 
-  const res = (completed / total)*100;
+  const completedColor = theme === 'dark' ? '#10b981' : '#059669';
+  const pendingColor = theme === 'dark' ? 'rgba(255, 255, 255, 0.05)' : 'rgba(0, 0, 0, 0.06)';
+  const borderColor = theme === 'dark' ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)';
 
-  //grafico
+  // Chart data
   const data = {
-    labels: ['Completado', 'Restante'],
+    labels: ['Completados', 'Pendientes'],
     datasets: [
       {
         data: [completed, total - completed],
-        backgroundColor: ['#61dafa', '#212529'],
-        hoverBackgroundColor: ['#61dafa', '#212529'],
+        backgroundColor: [completedColor, pendingColor],
+        borderColor: [completedColor, borderColor],
+        borderWidth: 1,
+        hoverBackgroundColor: [completedColor, pendingColor],
       },
     ],
   };
 
+  const chartOptions = {
+    cutout: '75%',
+    plugins: {
+      legend: {
+        display: false,
+      },
+    },
+    maintainAspectRatio: true,
+  };
+
   return (
-    <section className="containerCircle" >
-      <div className='Circle'>
-        <Doughnut data={data} />
+    <section className="containerCircle">
+      <div className="Circle">
+        <Doughnut data={data} options={chartOptions} />
       </div>
 
-      <div className="progress barra-circle" role="progressbar" aria-label="Default striped example" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100">
-        <div className="progress-bar progress-bar-striped bg-info" style={{ width: `${res.toFixed(2)}%` }}>{ res.toFixed(2) }%</div>
+      <div className="progress barra-circle" role="progressbar" aria-label="Progreso de tareas" aria-valuenow={percentage} aria-valuemin="0" aria-valuemax="100">
+        <div className="progress-bar progress-bar-striped progress-bar-animated bg-success" style={{ width: `${percentage}%` }}>
+          {percentage > 0 ? `${percentage.toFixed(0)}%` : '0%'}
+        </div>
       </div>
-      <div>
-      <span className='container-icons'>
-      <div >
-        <p>Instrucciones: Para crear una nueva tarea debe precionar
-            el botón azul circular, el cual se encuentra
-            en la parte inferior izquierda de su pantalla.  </p>
-      </div>
-        <div>
-          <BsFillDashCircleFill/>
-          <p>Eliminar: Cuando necesites borrar una tarea puedes dar click a este icono</p>
+
+      <div className="instructions-card">
+        <h4>Guía Rápida</h4>
+        
+        <div className="instruction-item">
+          <AiFillPlusCircle className="instruction-icon create" />
+          <p className="mb-0">
+            <strong>Crear Tarea:</strong> Presiona el botón flotante circular de la esquina inferior derecha.
+          </p>
         </div>
 
-        <div>
-          <BsCheckSquareFill/>
-          <p>Completado: Cuando hayas finalizado una tarea da click a este icono.</p>
+        <div className="instruction-item">
+          <BsCheckSquareFill className="instruction-icon check" />
+          <p className="mb-0">
+            <strong>Completar:</strong> Haz clic en el ícono de check para marcar la tarea como realizada.
+          </p>
         </div>
-      </span>
+
+        <div className="instruction-item">
+          <BsFillDashCircleFill className="instruction-icon delete" />
+          <p className="mb-0">
+            <strong>Eliminar:</strong> Haz clic en el ícono de eliminar para borrar la tarea de la lista.
+          </p>
+        </div>
       </div>
     </section>
   );
 }
 
 export { Graficos };
-

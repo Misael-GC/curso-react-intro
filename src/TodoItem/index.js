@@ -3,7 +3,7 @@ import { BsFillDashCircleFill, BsCheckSquareFill } from "react-icons/bs";
 
 function TodoItem(props) {
     return (
-      <li className="list-group-item list-group-item-action list-group-item-dark TodoItem">
+      <li className="TodoItem">
 
         <span 
         className={`Icon Icon-check ${props.completed && 'Icon-check--active'}`}

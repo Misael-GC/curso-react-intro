@@ -16,7 +16,7 @@ function Footer() {
             </ul>
         </section>
         <section className="right">
-            <img  loading="lazy"  src="https://pbs.twimg.com/profile_images/1534067141519069184/AyYQAI1b_400x400.jpg" alt="Logo de Misael" width="40" height="40" className="rounded-custom"/>
+            <img  loading="lazy"  src="https://scontent.fpbc2-6.fna.fbcdn.net/v/t39.30808-1/548457985_648398208324643_6500843107420245253_n.jpg?stp=dst-jpg_tt6&cstp=mx979x979&ctp=s200x200&_nc_cat=108&ccb=1-7&_nc_sid=e99d92&_nc_eui2=AeGIBMXPtQrVEjxqcxjTYfWU7JwhcV7NRkPsnCFxXs1GQ-SaaON11Pr7FXjtRvpl2Ro4Cl-tnvKMmaNX85cxvu5u&_nc_ohc=gcujbIUpvPIQ7kNvwFS0T_9&_nc_oc=AdrepFcDjpVilsX7PhJgCpB4ft5QDG0ZRf3Uv7if0XjiRUNgDqgeVcCXFYEqIxQQ1WPWp7tc6Bj8fz9lzR8gh6Ee&_nc_zt=24&_nc_ht=scontent.fpbc2-6.fna&_nc_gid=RXeJaVpmR-4xYpZZf82Iyg&_nc_ss=7b2a8&oh=00_AQD-3OPRSHC9xrBWutHDFQnmtwbkcAGKhtQto1vRIwUaBQ&oe=6A6A0999" alt="Logo de Misael" width="40" height="40" className="rounded-custom"/>
         </section>
     </footer>
   )

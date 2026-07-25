@@ -20,15 +20,47 @@ function TodoProvider({ children }) {
   //open Modal
   const [openModal, setOpenModal] = React.useState(false);
 
+  //Filter state: 'all' | 'completed' | 'pending'
+  const [filter, setFilter] = React.useState("all");
+
+  //Theme state: 'dark' | 'light'
+  const [theme, setTheme] = React.useState(() => {
+    return localStorage.getItem("THEME") || "dark";
+  });
+
+  const toggleTheme = () => {
+    const newTheme = theme === "dark" ? "light" : "dark";
+    setTheme(newTheme);
+    localStorage.setItem("THEME", newTheme);
+  };
+
+  useEffect(() => {
+    if (theme === "light") {
+      document.body.classList.add("light-theme");
+      document.body.classList.remove("dark-theme");
+    } else {
+      document.body.classList.add("dark-theme");
+      document.body.classList.remove("light-theme");
+    }
+  }, [theme]);
+
   const completedTodos = todos.filter((todo) => !!todo.completed).length;
 
   const totalTodos = todos.length;
 
-  //TodoList
+  //TodoList filtered by search value and status filter
   const searchedTodos = todos.filter((todo) => {
     const todoText = todo.text.toLowerCase();
     const searchText = searchValue.toLocaleLowerCase();
-    return todoText.includes(searchText);
+    const matchesSearch = todoText.includes(searchText);
+    
+    if (filter === "completed") {
+      return matchesSearch && todo.completed;
+    }
+    if (filter === "pending") {
+      return matchesSearch && !todo.completed;
+    }
+    return matchesSearch;
   });
 
   //TodoList delete & check
@@ -111,6 +143,10 @@ function TodoProvider({ children }) {
         openModal,
         setOpenModal,
         addTodo,
+        filter,
+        setFilter,
+        theme,
+        toggleTheme,
       }}
     >
       {children}

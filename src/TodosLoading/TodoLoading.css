@@ -1,93 +1,48 @@
-#TodosLoadingCounterAll{
-    display: flex;
-    flex-direction: column;
-    padding: 20px 10px 50px;
-    background: rgba(250,250,250,0.15);
-    border-radius: 20px;
-    height: auto;
-    margin-right: 30px; /* check */
-    margin-bottom: 25px;
+#TodosLoadingCounterAll {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
 }
 
-.LoadingTodo-container{
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 24px;
-    box-shadow: 0px 5px 50px rgba(32, 35, 41, 0.15);
-    border-radius: 20px;
-    margin: 10px auto;
-    width: 600px;
+.LoadingTodo-container {
+  display: flex;
+  align-items: center;
+  padding: 16px 20px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  position: relative;
+  overflow: hidden;
+  height: 68px;
+  gap: 16px;
 }
 
-.LoadingTodo-text{
-    margin: 24px 0 24px 24px;
-    width: calc(100% - 120px);
-    font-size: 18px;
-    line-height: 24px;
-    font-weight: 400;
+.LoadingTodo-text {
+  flex: 1;
+  height: 16px;
+  border-radius: 4px;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.03) 25%, rgba(255, 255, 255, 0.08) 50%, rgba(255, 255, 255, 0.03) 75%);
+  background-size: 200% 100%;
+  animation: loadingAnimation 1.5s infinite;
+  margin: 0;
 }
 
-.LoadingTodo-completeIcon{
-    border-radius: 15px;
-    height: 48px;
-    width: 48px;
-}
-
-.LoadingTodo-deleteIcon{
-    border-radius: 50px;
-    height: 48px;
-    width: 48px;
-}
-
-.LoadingTodo-completeIcon{
-    position: absolute;
-    left: 12px;
-}
-
-.LoadingTodo-deleteIcon{
-    position: absolute;
-    top: 10px;
-    right: 10px;
-}
-
-.LoadingTodo-container,
 .LoadingTodo-completeIcon,
-.LoadingTodo-deleteIcon{
-    background: linear-gradient(90deg, rgba(250,250,250,0.15), rgb(200, 199, 199)); /*rgba(32, 35, 41, 0.15)*/
-    background-size: 400% 400%;
-    
-    animation: loadingAnimation 3s ease-in-out infinite;
+.LoadingTodo-deleteIcon {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.03) 25%, rgba(255, 255, 255, 0.08) 50%, rgba(255, 255, 255, 0.03) 75%);
+  background-size: 200% 100%;
+  animation: loadingAnimation 1.5s infinite;
 }
 
 @keyframes loadingAnimation {
-    0%{
-        background-position: 0% 50%;
-    }
-    50%{
-        background-position: 100% 50%;
-    }
-    100%{
-        background-position: 0% 50%;
-    }
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
 }
-
-
-
-@media (max-width: 768px) {
-    .LoadingTodo-container{
-        max-width: 700px;
-    }
-  }
-
-
-  @media (max-width: 425px) {
-    .LoadingTodo-container{
-        max-width: 300px;
-        /* margin: 5px auto; */
-    }
-    #TodosLoadingCounterAll{
-        margin: 1px auto; 
-    }
-  }

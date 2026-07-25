@@ -1,27 +1,36 @@
 import React from 'react';
+import { TodoContext } from '../TodoContext';
 import './Filtros.css';
 
-function Filtros({ onTodos, onCompletados, onNoCompletados }) {
+function Filtros() {
+  const { filter, setFilter } = React.useContext(TodoContext);
+
   return (
     <section className='filter'>
         <div className='container__filter'>
-            <spa className="filter__option"
-                   onClick={onTodos}
-            >Todos</spa>
-
-
-            <span className="filter__option filter__option--completed"
-                  onClick={onCompletados}
+            <span 
+              className={`filter__option ${filter === 'all' ? 'filter__option--active' : ''}`}
+              onClick={() => setFilter('all')}
             >
-            Completados</span>
+              Todos
+            </span>
 
+            <span 
+              className={`filter__option filter__option--completed ${filter === 'completed' ? 'filter__option--active' : ''}`}
+              onClick={() => setFilter('completed')}
+            >
+              Completados
+            </span>
 
-            <span className="filter__option filter__option--no-completed"
-              onClick={onNoCompletados}
-            >No completados</span>
+            <span 
+              className={`filter__option filter__option--no-completed ${filter === 'pending' ? 'filter__option--active' : ''}`}
+              onClick={() => setFilter('pending')}
+            >
+              Pendientes
+            </span>
         </div>
     </section>
-  )
+  );
 }
 
 export { Filtros };
