@@ -17,6 +17,7 @@ import { Modal } from "../Modal";
 import { TodoContext } from "../TodoContext";
 import { TodoForm } from "../TodoForm";
 import { Filtros } from "../Filtros";
+import { TodoPagination } from "../TodoPagination";
 
 function AppUI() {
   const {
@@ -30,7 +31,8 @@ function AppUI() {
     showSearch,
     showCounter,
     showGraphic,
-    openModal
+    openModal,
+    paginatedTodos
   } = React.useContext(TodoContext);
 
   return (
@@ -82,7 +84,7 @@ function AppUI() {
 
               <div className="todo-list-wrapper">
                 <TodoList>
-                  {searchedTodos.map((todo) => (
+                  {paginatedTodos.map((todo) => (
                     <TodoItem
                       key={todo.text}
                       text={todo.text}
@@ -92,6 +94,8 @@ function AppUI() {
                     />
                   ))}
                 </TodoList>
+
+                {!loading && <TodoPagination />}
 
                 {loading && <TodosLoading />}
                 {error && <TodosError />}

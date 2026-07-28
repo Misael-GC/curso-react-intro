@@ -63,6 +63,18 @@ function TodoProvider({ children }) {
     return matchesSearch;
   });
 
+  // Pagination Logic
+  const [currentPage, setCurrentPage] = React.useState(1);
+  const todosPerPage = 5;
+
+  // Reset pagination page on search or filter change
+  React.useEffect(() => {
+    setCurrentPage(1);
+  }, [searchValue, filter]);
+
+  const totalPages = Math.ceil(searchedTodos.length / todosPerPage);
+  const paginatedTodos = searchedTodos.slice((currentPage - 1) * todosPerPage, currentPage * todosPerPage);
+
   //TodoList delete & check
   const completeTodo = (text) => {
     const todoIndex = todos.findIndex((todo) => todo.text === text);
@@ -147,6 +159,10 @@ function TodoProvider({ children }) {
         setFilter,
         theme,
         toggleTheme,
+        currentPage,
+        setCurrentPage,
+        totalPages,
+        paginatedTodos,
       }}
     >
       {children}
