@@ -75,6 +75,9 @@ function TodoProvider({ children }) {
   const totalPages = Math.ceil(searchedTodos.length / todosPerPage);
   const paginatedTodos = searchedTodos.slice((currentPage - 1) * todosPerPage, currentPage * todosPerPage);
 
+  // Editing state
+  const [editingTodo, setEditingTodo] = React.useState(null);
+
   //TodoList delete & check
   const completeTodo = (text) => {
     const todoIndex = todos.findIndex((todo) => todo.text === text);
@@ -89,6 +92,13 @@ function TodoProvider({ children }) {
     const newTodos = [...todos];
     const todoIndex = newTodos.findIndex((todo) => todo.text === text);
     newTodos.splice(todoIndex, 1);
+    saveTodos(newTodos);
+  };
+
+  const updateTodo = (oldText, newText) => {
+    const todoIndex = todos.findIndex((todo) => todo.text === oldText);
+    const newTodos = [...todos];
+    newTodos[todoIndex].text = newText;
     saveTodos(newTodos);
   };
 
@@ -163,6 +173,9 @@ function TodoProvider({ children }) {
         setCurrentPage,
         totalPages,
         paginatedTodos,
+        editingTodo,
+        setEditingTodo,
+        updateTodo,
       }}
     >
       {children}

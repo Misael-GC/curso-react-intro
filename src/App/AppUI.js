@@ -32,7 +32,9 @@ function AppUI() {
     showCounter,
     showGraphic,
     openModal,
-    paginatedTodos
+    paginatedTodos,
+    setEditingTodo,
+    setOpenModal
   } = React.useContext(TodoContext);
 
   return (
@@ -91,6 +93,10 @@ function AppUI() {
                       completed={todo.completed}
                       onComplete={() => completeTodo(todo.text)}
                       onDelete={() => deleteTodo(todo.text)}
+                      onEdit={() => {
+                        setEditingTodo(todo);
+                        setOpenModal(true);
+                      }}
                     />
                   ))}
                 </TodoList>

@@ -1,5 +1,5 @@
 import './TodoItem.css'
-import { BsFillDashCircleFill, BsCheckSquareFill } from "react-icons/bs";
+import { BsFillDashCircleFill, BsCheckSquareFill, BsPencilSquare } from "react-icons/bs";
 
 function TodoItem(props) {
     return (
@@ -7,13 +7,20 @@ function TodoItem(props) {
 
         <span 
         className={`Icon Icon-check ${props.completed && 'Icon-check--active'}`}
-        onClick={props.onComplete} //le pasamos el promp
+        onClick={props.onComplete}
         >
-
         <BsCheckSquareFill/>
         </span> 
 
         <p className={`TodoItem-p ${props.completed && 'TodoItem-p--complete'}`}>{props.text}</p>
+
+        <span 
+        className="Icon Icon-edit"
+        onClick={props.onEdit}
+        aria-label="Editar tarea"
+        >
+        <BsPencilSquare/>
+        </span>
 
         <span 
         className="Icon Icon-delete"

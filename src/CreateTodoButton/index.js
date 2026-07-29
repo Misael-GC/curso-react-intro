@@ -5,13 +5,14 @@ import { AiFillPlusCircle } from  "react-icons/ai";
 
 
 function CreateTodoButton(){
-    const { setOpenModal } = React.useContext(TodoContext);
+    const { setOpenModal, setEditingTodo } = React.useContext(TodoContext);
     return(
         <button
          className="CreateTodoButton"
          onClick={
             () =>{
-                setOpenModal((abrirModal) => !abrirModal)
+                setEditingTodo(null);
+                setOpenModal((abrirModal) => !abrirModal);
             }
          }
          >

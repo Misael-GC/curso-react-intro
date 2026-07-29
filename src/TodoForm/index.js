@@ -4,17 +4,22 @@ import { AiTwotoneEdit } from "react-icons/ai";
 import { TodoContext } from "../TodoContext";
 
 function TodoForm() {
-
     const {
         setOpenModal,
         addTodo,
+        editingTodo,
+        updateTodo,
     } = React.useContext(TodoContext);
 
-    const [newTodoValue, setNewTodoValue] = React.useState('');
+    const [newTodoValue, setNewTodoValue] = React.useState(editingTodo ? editingTodo.text : '');
 
     const onSubmit = (event)=>{
-        event.preventDefault(); //evitar recargar la página
-        addTodo(newTodoValue)
+        event.preventDefault();
+        if (editingTodo) {
+            updateTodo(editingTodo.text, newTodoValue);
+        } else {
+            addTodo(newTodoValue);
+        }
         setOpenModal(false);
     };
 
@@ -28,13 +33,14 @@ function TodoForm() {
 
   return (
     <form className="formModal" onSubmit={onSubmit}>
-      {" "}
-      {/* conecta con el submi */}
-      <label>Escribe tu nueva tarea <AiTwotoneEdit/></label>
+      <label>
+        {editingTodo ? "Editar tarea" : "Escribe tu nueva tarea"} <AiTwotoneEdit/>
+      </label>
       <textarea
         placeholder="Actividad por hacer 🚀"
         value={newTodoValue}
         onChange={onChange}
+        required
       />
       <div className="TodoForm-buttonContainer">
         <button
@@ -45,7 +51,7 @@ function TodoForm() {
           Cancelar
         </button>
         <button className="TodoForm-button TodoForm-button--add" type="submit">
-          Añadir
+          {editingTodo ? "Guardar" : "Añadir"}
         </button>
       </div>
     </form>

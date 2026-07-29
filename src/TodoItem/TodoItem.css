@@ -72,6 +72,15 @@
   background: rgba(233, 64, 87, 0.1);
 }
 
+.Icon-edit {
+  color: var(--text-muted);
+}
+
+.Icon-edit:hover {
+  color: var(--primary);
+  background: var(--primary-glow);
+}
+
 @media (max-width: 768px) {
   .TodoItem {
     padding: 14px 16px;
