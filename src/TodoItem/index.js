@@ -17,49 +17,54 @@ function TodoItem(props) {
           props.onDragEnd(e);
         }}
       >
-        <span 
-        className="Icon Icon-drag"
-        onMouseDown={() => setIsDraggable(true)}
-        onMouseUp={() => setIsDraggable(false)}
-        onTouchStart={() => setIsDraggable(true)}
-        onTouchEnd={() => setIsDraggable(false)}
-        title="Arrastrar para reordenar"
-        >
-        <BsList/>
-        </span>
-
-        <span 
-        className={`Icon Icon-check ${props.completed && 'Icon-check--active'}`}
-        onClick={props.onComplete}
-        >
-        <BsCheckSquareFill/>
-        </span> 
-
         <p className={`TodoItem-p ${props.completed && 'TodoItem-p--complete'}`}>{props.text}</p>
 
-        <span 
-        className={`Icon Icon-focus ${props.isFocused ? 'Icon-focus--active' : ''}`}
-        onClick={props.onFocus}
-        aria-label="Enfocar tarea"
-        title="Enfocar tarea"
-        >
-        <BsBullseye/>
-        </span>
+        <div className="TodoItem-actions">
+          <span 
+            className="Icon Icon-drag"
+            onMouseDown={() => setIsDraggable(true)}
+            onMouseUp={() => setIsDraggable(false)}
+            onTouchStart={() => setIsDraggable(true)}
+            onTouchEnd={() => setIsDraggable(false)}
+            title="Arrastrar para reordenar"
+          >
+            <BsList/>
+          </span>
 
-        <span 
-        className="Icon Icon-edit"
-        onClick={props.onEdit}
-        aria-label="Editar tarea"
-        title="Editar tarea"
-        >
-        <BsPencilSquare/>
-        </span>
+          <span 
+            className={`Icon Icon-check ${props.completed && 'Icon-check--active'}`}
+            onClick={props.onComplete}
+            title="Completar tarea"
+          >
+            <BsCheckSquareFill/>
+          </span> 
 
-        <span 
-        className="Icon Icon-delete"
-        onClick={props.onDelete}
-        title="Eliminar tarea"
-        ><BsFillDashCircleFill/></span>
+          <span 
+            className={`Icon Icon-focus ${props.isFocused ? 'Icon-focus--active' : ''}`}
+            onClick={props.onFocus}
+            aria-label="Enfocar tarea"
+            title="Enfocar tarea"
+          >
+            <BsBullseye/>
+          </span>
+
+          <span 
+            className="Icon Icon-edit"
+            onClick={props.onEdit}
+            aria-label="Editar tarea"
+            title="Editar tarea"
+          >
+            <BsPencilSquare/>
+          </span>
+
+          <span 
+            className="Icon Icon-delete"
+            onClick={props.onDelete}
+            title="Eliminar tarea"
+          >
+            <BsFillDashCircleFill/>
+          </span>
+        </div>
       </li>
     );
   }

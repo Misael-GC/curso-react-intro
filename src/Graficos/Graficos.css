@@ -78,3 +78,15 @@
 .instruction-icon.create {
   color: var(--primary);
 }
+
+.instruction-icon.edit {
+  color: var(--primary);
+}
+
+.instruction-icon.focus {
+  color: var(--primary);
+}
+
+.instruction-icon.drag {
+  color: var(--text-muted);
+}

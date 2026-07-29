@@ -134,8 +134,34 @@
   background: rgba(255, 255, 255, 0.05);
 }
 
+.TodoItem-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
 @media (max-width: 768px) {
   .TodoItem {
     padding: 14px 16px;
+  }
+}
+
+@media (max-width: 576px) {
+  .TodoItem {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+    padding: 12px 14px;
+  }
+
+  .TodoItem-p {
+    width: 100%;
+    font-size: 0.95rem;
+  }
+
+  .TodoItem-actions {
+    justify-content: flex-end;
+    width: 100%;
   }
 }

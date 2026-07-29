@@ -1,6 +1,6 @@
 import React from 'react';
 import { Doughnut } from 'react-chartjs-2';
-import { BsFillDashCircleFill, BsCheckSquareFill } from "react-icons/bs";
+import { BsFillDashCircleFill, BsCheckSquareFill, BsList, BsPencilSquare, BsBullseye } from "react-icons/bs";
 import { AiFillPlusCircle } from "react-icons/ai";
 import 'chart.js/auto';
 import './Graficos.css';
@@ -71,6 +71,27 @@ function Graficos({ total, completed }) {
           <BsFillDashCircleFill className="instruction-icon delete" />
           <p className="mb-0">
             <strong>Eliminar:</strong> Haz clic en el ícono de eliminar para borrar la tarea de la lista.
+          </p>
+        </div>
+
+        <div className="instruction-item">
+          <BsPencilSquare className="instruction-icon edit" />
+          <p className="mb-0">
+            <strong>Editar:</strong> Abre el modal para modificar el texto.
+          </p>
+        </div>
+
+        <div className="instruction-item">
+          <BsBullseye className="instruction-icon focus" />
+          <p className="mb-0">
+            <strong>Enfoque:</strong> Activa el panel de Pomodoro y desplaza la pantalla arriba.
+          </p>
+        </div>
+
+        <div className="instruction-item">
+          <BsList className="instruction-icon drag" />
+          <p className="mb-0">
+            <strong>Ordenar:</strong> Arrastra desde el tirador izquierdo para cambiar posiciones.
           </p>
         </div>
       </div>
