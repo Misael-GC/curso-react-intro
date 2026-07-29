@@ -78,14 +78,19 @@ function TodoProvider({ children }) {
   // Editing state
   const [editingTodo, setEditingTodo] = React.useState(null);
 
+  // Focus state
+  const [focusedTodo, setFocusedTodo] = React.useState(null);
+
   //TodoList delete & check
   const completeTodo = (text) => {
     const todoIndex = todos.findIndex((todo) => todo.text === text);
-
     const newTodos = [...todos];
-
     newTodos[todoIndex].completed = !newTodos[todoIndex].completed;
     saveTodos(newTodos);
+    
+    if (focusedTodo && focusedTodo.text === text) {
+      setFocusedTodo(null);
+    }
   };
 
   const deleteTodo = (text) => {
@@ -93,6 +98,10 @@ function TodoProvider({ children }) {
     const todoIndex = newTodos.findIndex((todo) => todo.text === text);
     newTodos.splice(todoIndex, 1);
     saveTodos(newTodos);
+
+    if (focusedTodo && focusedTodo.text === text) {
+      setFocusedTodo(null);
+    }
   };
 
   const updateTodo = (oldText, newText) => {
@@ -100,6 +109,10 @@ function TodoProvider({ children }) {
     const newTodos = [...todos];
     newTodos[todoIndex].text = newText;
     saveTodos(newTodos);
+
+    if (focusedTodo && focusedTodo.text === oldText) {
+      setFocusedTodo(newTodos[todoIndex]);
+    }
   };
 
   //TodoCounter P2 Frases random
@@ -176,6 +189,8 @@ function TodoProvider({ children }) {
         editingTodo,
         setEditingTodo,
         updateTodo,
+        focusedTodo,
+        setFocusedTodo,
       }}
     >
       {children}

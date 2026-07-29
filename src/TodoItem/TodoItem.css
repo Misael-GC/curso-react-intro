@@ -81,6 +81,30 @@
   background: var(--primary-glow);
 }
 
+.TodoItem--focused {
+  border-color: var(--primary) !important;
+  box-shadow: 0 0 15px var(--primary-glow) !important;
+}
+
+.Icon-focus {
+  color: var(--text-muted);
+}
+
+.Icon-focus:hover {
+  color: var(--primary);
+  background: var(--primary-glow);
+}
+
+.Icon-focus--active {
+  color: var(--primary) !important;
+  animation: pulseIcon 1.5s infinite alternate;
+}
+
+@keyframes pulseIcon {
+  0% { transform: scale(1); }
+  100% { transform: scale(1.15); }
+}
+
 @media (max-width: 768px) {
   .TodoItem {
     padding: 14px 16px;

@@ -18,6 +18,7 @@ import { TodoContext } from "../TodoContext";
 import { TodoForm } from "../TodoForm";
 import { Filtros } from "../Filtros";
 import { TodoPagination } from "../TodoPagination";
+import { TodoFocusPanel } from "../TodoFocusPanel";
 
 function AppUI() {
   const {
@@ -34,7 +35,9 @@ function AppUI() {
     openModal,
     paginatedTodos,
     setEditingTodo,
-    setOpenModal
+    setOpenModal,
+    focusedTodo,
+    setFocusedTodo
   } = React.useContext(TodoContext);
 
   return (
@@ -69,6 +72,7 @@ function AppUI() {
           {/* Right Column: Search, Filter & List */}
           <div className="col-12 col-lg-7 col-xl-8">
             <div className="glass p-4 rounded-4 h-100 d-flex flex-column gap-4">
+              {!loading && <TodoFocusPanel />}
               <div>
                 <h2 className="fs-4 fw-bold mb-1 text-primary">Lista de Tareas</h2>
                 <p className="text-secondary small">Busca, filtra y gestiona tus actividades diarias</p>
@@ -96,6 +100,14 @@ function AppUI() {
                       onEdit={() => {
                         setEditingTodo(todo);
                         setOpenModal(true);
+                      }}
+                      isFocused={focusedTodo && focusedTodo.text === todo.text}
+                      onFocus={() => {
+                        const nextFocus = focusedTodo && focusedTodo.text === todo.text ? null : todo;
+                        setFocusedTodo(nextFocus);
+                        if (nextFocus) {
+                          window.scrollTo({ top: 0, behavior: 'smooth' });
+                        }
                       }}
                     />
                   ))}
