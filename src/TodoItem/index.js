@@ -1,9 +1,32 @@
+import React from 'react';
 import './TodoItem.css'
-import { BsFillDashCircleFill, BsCheckSquareFill, BsPencilSquare, BsBullseye } from "react-icons/bs";
+import { BsFillDashCircleFill, BsCheckSquareFill, BsPencilSquare, BsBullseye, BsList } from "react-icons/bs";
 
 function TodoItem(props) {
+    const [isDraggable, setIsDraggable] = React.useState(false);
+
     return (
-      <li className={`TodoItem ${props.isFocused ? 'TodoItem--focused' : ''}`}>
+      <li 
+        className={`TodoItem ${props.isFocused ? 'TodoItem--focused' : ''} ${props.isDragging ? 'TodoItem--dragging' : ''} ${props.isDragOver ? 'TodoItem--drag-over' : ''}`}
+        draggable={isDraggable}
+        onDragStart={props.onDragStart}
+        onDragOver={props.onDragOver}
+        onDrop={props.onDrop}
+        onDragEnd={(e) => {
+          setIsDraggable(false);
+          props.onDragEnd(e);
+        }}
+      >
+        <span 
+        className="Icon Icon-drag"
+        onMouseDown={() => setIsDraggable(true)}
+        onMouseUp={() => setIsDraggable(false)}
+        onTouchStart={() => setIsDraggable(true)}
+        onTouchEnd={() => setIsDraggable(false)}
+        title="Arrastrar para reordenar"
+        >
+        <BsList/>
+        </span>
 
         <span 
         className={`Icon Icon-check ${props.completed && 'Icon-check--active'}`}

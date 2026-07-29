@@ -115,6 +115,18 @@ function TodoProvider({ children }) {
     }
   };
 
+  const reorderTodos = (draggedText, targetText) => {
+    const draggedIndex = todos.findIndex((todo) => todo.text === draggedText);
+    const targetIndex = todos.findIndex((todo) => todo.text === targetText);
+    
+    if (draggedIndex === -1 || targetIndex === -1) return;
+    
+    const newTodos = [...todos];
+    const [removed] = newTodos.splice(draggedIndex, 1);
+    newTodos.splice(targetIndex, 0, removed);
+    saveTodos(newTodos);
+  };
+
   //TodoCounter P2 Frases random
   const frasesMotivacionales = [
     "Cree en ti, todo es posible.",
@@ -191,6 +203,7 @@ function TodoProvider({ children }) {
         updateTodo,
         focusedTodo,
         setFocusedTodo,
+        reorderTodos,
       }}
     >
       {children}

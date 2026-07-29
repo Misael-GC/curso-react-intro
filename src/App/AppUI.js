@@ -37,8 +37,36 @@ function AppUI() {
     setEditingTodo,
     setOpenModal,
     focusedTodo,
-    setFocusedTodo
+    setFocusedTodo,
+    reorderTodos
   } = React.useContext(TodoContext);
+
+  const [draggedText, setDraggedText] = React.useState(null);
+  const [dragOverText, setDragOverText] = React.useState(null);
+
+  const handleDragStart = (e, text) => {
+    setDraggedText(text);
+  };
+
+  const handleDragOver = (e, text) => {
+    e.preventDefault();
+    if (dragOverText !== text) {
+      setDragOverText(text);
+    }
+  };
+
+  const handleDrop = (e, targetText) => {
+    e.preventDefault();
+    setDragOverText(null);
+    if (draggedText && draggedText !== targetText) {
+      reorderTodos(draggedText, targetText);
+    }
+  };
+
+  const handleDragEnd = () => {
+    setDraggedText(null);
+    setDragOverText(null);
+  };
 
   return (
     <>
@@ -109,6 +137,12 @@ function AppUI() {
                           window.scrollTo({ top: 0, behavior: 'smooth' });
                         }
                       }}
+                      isDragging={draggedText === todo.text}
+                      isDragOver={dragOverText === todo.text}
+                      onDragStart={(e) => handleDragStart(e, todo.text)}
+                      onDragOver={(e) => handleDragOver(e, todo.text)}
+                      onDrop={(e) => handleDrop(e, todo.text)}
+                      onDragEnd={handleDragEnd}
                     />
                   ))}
                 </TodoList>
