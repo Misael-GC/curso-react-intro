@@ -121,3 +121,138 @@
   background: var(--success-glow);
   border-color: var(--success);
 }
+
+/* Modal Overlay styling for finished Pomodoro */
+.focus-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(10, 15, 25, 0.75);
+  backdrop-filter: blur(10px);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeInModal 0.25s ease-out;
+}
+
+@keyframes fadeInModal {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.focus-modal-content {
+  width: 90%;
+  max-width: 440px;
+  background: var(--modal-bg) !important;
+  border: 1px solid var(--card-border) !important;
+  border-radius: 24px;
+  padding: 30px 24px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5), 0 0 30px var(--primary-glow);
+  animation: scaleUpModal 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+@keyframes scaleUpModal {
+  from { transform: scale(0.9); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.focus-modal-header h2 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--primary);
+  margin: 0;
+  text-align: center;
+}
+
+.focus-modal-message {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  text-align: center;
+  margin: 0;
+}
+
+.focus-modal-task-title {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  text-align: center;
+  margin: 8px 0;
+  word-break: break-word;
+}
+
+.focus-rest-box {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 16px;
+  padding: 12px 16px;
+  margin-top: 10px;
+}
+
+.rest-icon {
+  font-size: 1.8rem;
+}
+
+.rest-text {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin: 0;
+  line-height: 1.4;
+}
+
+.focus-modal-footer {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+  margin-top: 10px;
+}
+
+.focus-modal-btn {
+  padding: 10px 20px;
+  border-radius: 12px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+  border: none;
+  height: 42px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.focus-modal-btn--primary {
+  background: transparent;
+  color: var(--text-secondary);
+  border: 1px solid var(--card-border);
+}
+
+.focus-modal-btn--primary:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-primary);
+  border-color: var(--card-border-hover);
+}
+
+.focus-modal-btn--success {
+  background: var(--success);
+  color: var(--bg-color);
+  box-shadow: 0 4px 12px var(--success-glow);
+}
+
+.focus-modal-btn--success:hover {
+  filter: brightness(1.1);
+  box-shadow: 0 6px 16px var(--success-glow);
+  transform: translateY(-1px);
+}
+
+.focus-modal-btn--success:active {
+  transform: translateY(0);
+}

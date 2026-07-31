@@ -9,12 +9,14 @@ function TodoFocusPanel() {
   // Timer state (25 minutes by default = 1500 seconds)
   const [timeLeft, setTimeLeft] = useState(1500);
   const [isActive, setIsActive] = useState(false);
+  const [showFinishedModal, setShowFinishedModal] = useState(false);
 
   // Reset timer if focusedTodo changes
   useEffect(() => {
     if (focusedTodo) {
       setTimeLeft(1500);
       setIsActive(false);
+      setShowFinishedModal(false);
     }
   }, [focusedTodo]);
 
@@ -27,8 +29,7 @@ function TodoFocusPanel() {
       }, 1000);
     } else if (timeLeft === 0) {
       setIsActive(false);
-      // Play a subtle alarm sound (optional/standard browser notification or visual pulse)
-      alert(`¡Tiempo de enfoque terminado para: "${focusedTodo?.text}"! Toma un descanso 🚀`);
+      setShowFinishedModal(true);
     }
     return () => clearInterval(interval);
   }, [isActive, timeLeft, focusedTodo]);
@@ -57,53 +58,90 @@ function TodoFocusPanel() {
   };
 
   return (
-    <div className="focus-panel glass p-4 mb-4 rounded-4">
-      <div className="focus-panel-header d-flex justify-content-between align-items-start gap-3">
-        <div className="focus-task-info">
-          <span className="focus-badge">🎯 Enfoque Activo</span>
-          <h3 className="focus-task-text text-truncate-custom">{focusedTodo.text}</h3>
+    <>
+      <div className="focus-panel glass p-4 mb-4 rounded-4">
+        <div className="focus-panel-header d-flex justify-content-between align-items-start gap-3">
+          <div className="focus-task-info">
+            <span className="focus-badge">🎯 Enfoque Activo</span>
+            <h3 className="focus-task-text text-truncate-custom">{focusedTodo.text}</h3>
+          </div>
+          <button 
+            className="focus-close-btn" 
+            onClick={() => setFocusedTodo(null)}
+            title="Quitar enfoque"
+          >
+            <BsXCircleFill />
+          </button>
         </div>
-        <button 
-          className="focus-close-btn" 
-          onClick={() => setFocusedTodo(null)}
-          title="Quitar enfoque"
-        >
-          <BsXCircleFill />
-        </button>
+
+        <div className="focus-timer-section d-flex flex-column align-items-center mt-3">
+          <div className={`timer-display ${isActive ? 'pulsing' : ''}`}>
+            {formatTime(timeLeft)}
+          </div>
+
+          <div className="timer-controls d-flex gap-3 mt-3">
+            <button 
+              className={`timer-btn play-pause ${isActive ? 'active' : ''}`} 
+              onClick={toggleTimer}
+              title={isActive ? 'Pausar' : 'Iniciar'}
+            >
+              {isActive ? <BsPauseFill /> : <BsPlayFill />}
+            </button>
+            
+            <button 
+              className="timer-btn reset" 
+              onClick={resetTimer}
+              title="Reiniciar temporizador"
+            >
+              <BsArrowCounterclockwise />
+            </button>
+
+            <button 
+              className="timer-btn complete" 
+              onClick={handleComplete}
+              title="Marcar como completada"
+            >
+              <BsCheckCircleFill />
+            </button>
+          </div>
+        </div>
       </div>
 
-      <div className="focus-timer-section d-flex flex-column align-items-center mt-3">
-        <div className={`timer-display ${isActive ? 'pulsing' : ''}`}>
-          {formatTime(timeLeft)}
+      {showFinishedModal && (
+        <div className="focus-modal-overlay">
+          <div className="focus-modal-content glass">
+            <div className="focus-modal-header">
+              <h2>🔔 ¡Sesión Completada!</h2>
+            </div>
+            <div className="focus-modal-body">
+              <p className="focus-modal-message">Has terminado tu tiempo de concentración de 25 minutos para la tarea:</p>
+              <h3 className="focus-modal-task-title">"{focusedTodo?.text}"</h3>
+              <div className="focus-rest-box">
+                <span className="rest-icon">☕</span>
+                <p className="rest-text">Es momento de tomar un descanso de 5 minutos antes de continuar.</p>
+              </div>
+            </div>
+            <div className="focus-modal-footer">
+              <button 
+                className="focus-modal-btn focus-modal-btn--primary" 
+                onClick={() => setShowFinishedModal(false)}
+              >
+                Entendido
+              </button>
+              <button 
+                className="focus-modal-btn focus-modal-btn--success" 
+                onClick={() => {
+                  handleComplete();
+                  setShowFinishedModal(false);
+                }}
+              >
+                Completar Tarea
+              </button>
+            </div>
+          </div>
         </div>
-
-        <div className="timer-controls d-flex gap-3 mt-3">
-          <button 
-            className={`timer-btn play-pause ${isActive ? 'active' : ''}`} 
-            onClick={toggleTimer}
-            title={isActive ? 'Pausar' : 'Iniciar'}
-          >
-            {isActive ? <BsPauseFill /> : <BsPlayFill />}
-          </button>
-          
-          <button 
-            className="timer-btn reset" 
-            onClick={resetTimer}
-            title="Reiniciar temporizador"
-          >
-            <BsArrowCounterclockwise />
-          </button>
-
-          <button 
-            className="timer-btn complete" 
-            onClick={handleComplete}
-            title="Marcar como completada"
-          >
-            <BsCheckCircleFill />
-          </button>
-        </div>
-      </div>
-    </div>
+      )}
+    </>
   );
 }
 
