@@ -4,10 +4,10 @@ import { BsPlayFill, BsPauseFill, BsArrowCounterclockwise, BsCheckCircleFill, Bs
 import './TodoFocusPanel.css';
 
 function TodoFocusPanel() {
-  const { focusedTodo, setFocusedTodo, completeTodo } = React.useContext(TodoContext);
+  const { focusedTodo, setFocusedTodo, completeTodo, sendBrowserNotification } = React.useContext(TodoContext);
   
   // Timer state (25 minutes by default = 1500 seconds)
-  const [timeLeft, setTimeLeft] = useState(1500);
+  const [timeLeft, setTimeLeft] = useState(5);
   const [isActive, setIsActive] = useState(false);
   const [showFinishedModal, setShowFinishedModal] = useState(false);
 
@@ -30,6 +30,10 @@ function TodoFocusPanel() {
     } else if (timeLeft === 0) {
       setIsActive(false);
       setShowFinishedModal(true);
+      sendBrowserNotification(
+        "🎯 ¡Tiempo de Enfoque Terminado!",
+        `Has completado la sesión de concentración para: "${focusedTodo?.text}". ¡Es hora de un descanso! ☕`
+      );
     }
     return () => clearInterval(interval);
   }, [isActive, timeLeft, focusedTodo]);

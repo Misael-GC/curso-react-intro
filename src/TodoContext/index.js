@@ -44,6 +44,25 @@ function TodoProvider({ children }) {
     }
   }, [theme]);
 
+  // Request browser notification permissions
+  React.useEffect(() => {
+    if ("Notification" in window && Notification.permission === "default") {
+      Notification.requestPermission();
+    }
+  }, []);
+
+  const sendBrowserNotification = (title, body) => {
+    if (!("Notification" in window)) {
+      return;
+    }
+    if (Notification.permission === "granted") {
+      new Notification(title, {
+        body,
+        icon: "/favicon.ico",
+      });
+    }
+  };
+
   const completedTodos = todos.filter((todo) => !!todo.completed).length;
 
   const totalTodos = todos.length;
@@ -87,6 +106,10 @@ function TodoProvider({ children }) {
     const newTodos = [...todos];
     newTodos[todoIndex].completed = !newTodos[todoIndex].completed;
     saveTodos(newTodos);
+    
+    if (newTodos[todoIndex].completed) {
+      sendBrowserNotification("✅ ¡Tarea Completada!", `Has completado la tarea: "${text}"`);
+    }
     
     if (focusedTodo && focusedTodo.text === text) {
       setFocusedTodo(null);
@@ -204,6 +227,7 @@ function TodoProvider({ children }) {
         focusedTodo,
         setFocusedTodo,
         reorderTodos,
+        sendBrowserNotification,
       }}
     >
       {children}
