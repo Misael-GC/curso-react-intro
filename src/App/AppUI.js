@@ -26,6 +26,7 @@ function AppUI() {
     error,
     completedTodos,
     totalTodos,
+    motivationalPhrase, 
     searchedTodos,
     completeTodo,
     deleteTodo,
@@ -38,7 +39,9 @@ function AppUI() {
     setOpenModal,
     focusedTodo,
     setFocusedTodo,
-    reorderTodos
+    reorderTodos,
+    searchValue,
+    setSearchValue
   } = React.useContext(TodoContext);
 
   const [draggedText, setDraggedText] = React.useState(null);
@@ -86,7 +89,11 @@ function AppUI() {
               {loading ? (
                 <TodoCounterLoading />
               ) : (
-                showCounter && <TodoCounter />
+                showCounter && <TodoCounter 
+                                  totalTodos={totalTodos} 
+                                  completedTodos={completedTodos} 
+                                  motivationalPhrase={motivationalPhrase}
+                                />
               )}
 
               {loading ? (
@@ -110,7 +117,7 @@ function AppUI() {
                 {loading ? (
                   <TodoSearchLoading />
                 ) : (
-                  showSearch && <TodoSearch />
+                  showSearch && <TodoSearch searchValue={searchValue} setSearchValue={setSearchValue} />
                 )}
                 
                 {!loading && <Filtros />}
