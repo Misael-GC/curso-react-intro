@@ -1,11 +1,7 @@
-import React from 'react';
-import { TodoContext } from '../TodoContext';
 import { BsChevronLeft, BsChevronRight } from 'react-icons/bs';
 import './TodoPagination.css';
 
-function TodoPagination() {
-  const { currentPage, setCurrentPage, totalPages } = React.useContext(TodoContext);
-
+function TodoPagination({ currentPage, setCurrentPage, totalPages }) {
   if (totalPages <= 1) return null; // No need to show pagination if there's only 1 page
 
   const handlePrev = () => {

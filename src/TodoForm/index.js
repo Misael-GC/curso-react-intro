@@ -1,15 +1,14 @@
 import React from "react";
 import './TodoForm.css'
 import { AiTwotoneEdit } from "react-icons/ai";
-import { TodoContext } from "../TodoContext";
+import { TodoContext } from "../App/useTodos";
 
-function TodoForm() {
-    const {
+function TodoForm({
         setOpenModal,
         addTodo,
         editingTodo,
         updateTodo,
-    } = React.useContext(TodoContext);
+    }) {
 
     const [newTodoValue, setNewTodoValue] = React.useState(editingTodo ? editingTodo.text : '');
 

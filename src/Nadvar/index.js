@@ -1,10 +1,7 @@
-import React from "react";
-import { TodoContext } from "../TodoContext";
 import { BsSunFill, BsMoonStarsFill } from "react-icons/bs";
 import './Nadvar.css';
 
-function Nadvar() {
-  const { theme, toggleTheme } = React.useContext(TodoContext);
+function Nadvar({ theme, toggleTheme }) {
 
   return (
     <nav className="navbar navbar-expand-lg bg-body-tertiary">

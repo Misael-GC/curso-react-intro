@@ -4,10 +4,8 @@ import { BsFillDashCircleFill, BsCheckSquareFill, BsList, BsPencilSquare, BsBull
 import { AiFillPlusCircle } from "react-icons/ai";
 import 'chart.js/auto';
 import './Graficos.css';
-import { TodoContext } from '../TodoContext';
 
-function Graficos({ total, completed }) {
-  const { theme } = React.useContext(TodoContext);
+function Graficos({ total, completed, theme }) {
   const percentage = total > 0 ? (completed / total) * 100 : 0;
 
   const completedColor = theme === 'dark' ? '#10b981' : '#059669';
@@ -52,7 +50,7 @@ function Graficos({ total, completed }) {
 
       <div className="instructions-card">
         <h4>Guía Rápida</h4>
-        
+
         <div className="instruction-item">
           <AiFillPlusCircle className="instruction-icon create" />
           <p className="mb-0">

@@ -1,9 +1,6 @@
-import React from 'react';
-import { TodoContext } from '../TodoContext';
 import './Filtros.css';
 
-function Filtros() {
-  const { filter, setFilter } = React.useContext(TodoContext);
+function Filtros({ filter, setFilter }) {
 
   return (
     <section className='filter'>

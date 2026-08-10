@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { TodoContext } from '../TodoContext';
+import { TodoContext } from '../App/useTodos';
 import { BsPlayFill, BsPauseFill, BsArrowCounterclockwise, BsCheckCircleFill, BsXCircleFill } from 'react-icons/bs';
 import './TodoFocusPanel.css';
 
-function TodoFocusPanel() {
-  const { focusedTodo, setFocusedTodo, completeTodo, sendBrowserNotification } = React.useContext(TodoContext);
+function TodoFocusPanel({ focusedTodo, setFocusedTodo, completeTodo, sendBrowserNotification }) {
   
   // Timer state (25 minutes by default = 1500 seconds)
   const [timeLeft, setTimeLeft] = useState(5);
