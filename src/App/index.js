@@ -58,7 +58,7 @@ function App() {
       totalPages,
     } = useTodos();
 
-    const [draggedText, setDraggedText] = React.useState(null);
+  const [draggedText, setDraggedText] = React.useState(null);
   const [dragOverText, setDragOverText] = React.useState(null);
 
   const handleDragStart = (e, text) => {
@@ -138,8 +138,14 @@ function App() {
               </div>
 
               <div className="todo-list-wrapper">
-                <TodoList>
-                  {paginatedTodos.map((todo) => (
+                <TodoList
+                  error={error}
+                  loading={loading}
+                  searchedTodos={searchedTodos}
+                  onError={()=> <TodosError/>}
+                  onLoading={()=> <TodosLoading/>}
+                  onEmpty={()=> <EmptyTodos/>}
+                  render={todo =>(
                     <TodoItem
                       key={todo.text}
                       text={todo.text}
@@ -165,14 +171,9 @@ function App() {
                       onDrop={(e) => handleDrop(e, todo.text)}
                       onDragEnd={handleDragEnd}
                     />
-                  ))}
-                </TodoList>
-
-                {!loading && <TodoPagination currentPage={currentPage} setCurrentPage={setCurrentPage} totalPages={totalPages} />}
-
-                {loading && <TodosLoading />}
-                {error && <TodosError />}
-                {!loading && searchedTodos.length === 0 && <EmptyTodos />}
+                  )}
+                />
+                
               </div>
             </div>
           </div>
